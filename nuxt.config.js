@@ -53,8 +53,8 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    //baseURL: "http://julienkeiff.fr:1337",
-    baseURL: "http://localhost/api",
+    baseURL: "http://julienkeiff.fr:1337",
+    // baseURL: "http://localhost/api",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
