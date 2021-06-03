@@ -48,19 +48,19 @@ export default {
   },
   methods: {
     removeEntry: function(id) {
-      this.$axios.delete('http://front-anidb.test/api/user/'+id)
+      this.$axios.delete('c-users/'+id)
         .then(_=> { this.updateEntries() })
     },
     addEntry: function() {
-      this.$axios.post(`http://front-anidb.test/api/user`, this.newUser)
+      this.$axios.post(`c-users`, this.newUser)
         .then(_=>{ this.clearInput() })
     },
     updateEntries: function() {
-      this.$axios.get('http://front-anidb.test/api/user')
+      this.$axios.get('c-users')
         .then(res => { this.response = res.data })
     },
     saveUpdate: function(){
-      this.$axios.put('http://front-anidb.test/api/user/'+this.id, this.newUser)
+      this.$axios.put('c-users/'+this.id, this.newUser)
         .then(res => { this.update = false; this.clearInput() })
     },
     editEntry: function(user) {
