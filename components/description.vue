@@ -1,10 +1,10 @@
 <template>
   <div id="full-item" class="relative w-10/12 bg-blue-50 mx-auto p-4 rounded-xl flex">
     <div class="h-full w-full order-2 ml-4 my-auto">
-      <img :src="anime.cover ? apiBase + anime.cover[0].url : ''" class="h-full w-auto max-h-96 m-auto rounded shadow"/>
+      <img :src="anime.cover ? apiBase + anime.cover[0].url : ''" class="h-full w-auto max-h-96 mr-8 ml-auto rounded shadow"/>
     </div>
-    <div>
-      <h1 class="text-4xl mb-4 w-8/12">{{ anime.title }}</h1>
+    <div class="">
+      <h1 class="text-4xl mb-4 w-11/12">{{ anime.title }}</h1>
       <div class="min-h-16">
       <span class="bg-blue-400 text-white rounded-xl px-4 py-0.5 mx-1 mb-4 text-sm"
             v-for="(cat, i) in splitJoin(anime.genres)" :key="i">{{ cat }}</span>
