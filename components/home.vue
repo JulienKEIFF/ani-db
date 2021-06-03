@@ -1,15 +1,29 @@
 <template>
   <div class="m-auto mt-4 w-11/12 bg-blue-50 rounded-md p-4 mb-16">
-    <label for="search" class="mr-4">Rechercher un anime</label>
-    <font-awesome-icon icon="search" />
-    <input id="search" type="text" class="px-2 w-10/12 rounded-xl bg-blue-200 mb-8" v-model="search">
+    <div class="flex w-1/2 mx-auto items-center">
+      <font-awesome-icon icon="search"/>
+      <input id="search" type="text" class="px-2 w-full rounded-xl bg-blue-200 ml-2" v-model="search">
+    </div>
 
-    <div v-for="anime in filteredItems" :key="anime.id" class="flex flex-row odd:bg-blue-500">
-      <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-36 mr-4 my-4" />
+    <div v-for="anime in filteredItems" :key="anime.id"
+         class="flex flex-row odd:bg-blue-500 bg-white p-2 m-4 shadow rounded-lg h-64">
+      <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-40 h-60 mr-4 rounded cursor-pointer"
+           @click="location.href='/anime/'+anime.id
+"/>
       <div class="flex flex-col relative">
-        <div class="font-bold text-xl cursor-pointer"> <a :href="'/anime/'+anime.id"> {{anime.title}} </a> </div>
-        <div class="mt-2 text-sm"> {{anime.description}} </div>
-        <div class="mt-4 text-sm absolute bottom-3 "> <u>Date de sortie:</u> <span class="capitalize">{{anime.season}} {{getYear(anime.startDate)}}</span> </div>
+        <div class="font-bold text-xl cursor-pointer"><a :href="'/anime/'+anime.id"> {{ anime.title }} </a></div>
+        <div class="mt-2 h-40 text-sm overflow-auto"> {{ anime.description }}</div>
+        <div class="absolute flex bottom-0 gap-2">
+          <div class="bg-blue-400 text-white rounded-xl px-4 py-1 mt-4 text-sm bottom-3 relative font-medium">Date de
+            sortie: <span
+              class="capitalize">{{ anime.season }} {{ getYear(anime.startDate) }}</span></div>
+          <div class="bg-blue-400 text-white rounded-xl px-4 py-1 mt-4 text-sm bottom-3 relative font-medium">Status:
+            <span
+              class="capitalize">{{ anime.status }}</span></div>
+          <div class="bg-blue-400 text-white rounded-xl px-4 py-1 mt-4 text-sm bottom-3 relative font-medium">Score:
+            <span
+              class="capitalize">{{ anime.score }}%</span></div>
+        </div>
       </div>
     </div>
   </div>
@@ -24,6 +38,7 @@ export default {
       animeList: [],
       selectAnime: [],
       search: '',
+      location: location,
     }
   },
   computed: {
@@ -34,13 +49,15 @@ export default {
     }
   },
   methods: {
-    getYear: function(date) {
-      if(date !== undefined && date !== null) return date.split('-')[0]
+    getYear: function (date) {
+      if (date !== undefined && date !== null) return date.split('-')[0]
     }
   },
-  mounted: function(){
+  mounted: function () {
     this.$axios.get('anime-shows')
-    .then(res => { this.animeList = res.data })
+      .then(res => {
+        this.animeList = res.data
+      })
   }
 }
 </script>

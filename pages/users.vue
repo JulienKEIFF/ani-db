@@ -27,7 +27,7 @@
       <div class="font-bold text-xl absolute right-6 cursor-pointer" @click="editEntry(user)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
-    
+
   </div>
 </template>
 
@@ -52,11 +52,11 @@ export default {
         .then(_=> { this.updateEntries() })
     },
     addEntry: function() {
-      this.$axios.post(`c-users`, this.newUser)
+      this.$axios.post(`c-users/`, this.newUser)
         .then(_=>{ this.clearInput() })
     },
     updateEntries: function() {
-      this.$axios.get('c-users')
+      this.$axios.get('c-users/')
         .then(res => { this.response = res.data })
     },
     saveUpdate: function(){
