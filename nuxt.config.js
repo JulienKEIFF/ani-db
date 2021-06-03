@@ -41,7 +41,7 @@ export default {
 
   fontawesome: {
     icons: {
-      solid: ['faBroadcastTower', 'faTv', 'faPencilRuler', 'faSearch'],
+      solid: ['faBroadcastTower', 'faTv', 'faPencilRuler', 'faSearch', 'faPen'],
     },
   },
 
@@ -54,7 +54,6 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     baseURL: "http://julienkeiff.fr:1337",
-    // baseURL: "http://localhost/api",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

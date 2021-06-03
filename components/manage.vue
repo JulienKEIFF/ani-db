@@ -4,6 +4,7 @@
       <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-16 h-16 mr-4 my-2 rounded-full" />
       <div class="font-bold text-xl"> {{anime.title}} </div>
       <div class="font-bold text-2xl absolute right-0.5 cursor-pointer" @click="removeEntry(anime.id)">X</div>
+      <div class="font-bold text absolute right-4 cursor-pointer" @click="editEntry(user.id)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
     <div id="add-entry-form" class="mt-16 flex flex-col">
