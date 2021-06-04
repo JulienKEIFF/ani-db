@@ -1,19 +1,7 @@
 <template>
   <div class="m-auto w-11/12 bg-blue-100 rounded-md p-4 mb-8">
 
-    <div id="add-entry-form" class="flex flex-col border-b-2 border-blue-500">
-      <label for="name">Nom</label>
-      <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="name" type="text" v-model="newUser.username" />
-
-      <label for="email">E-Mail</label>
-      <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="email" type="text" v-model="newUser.email" />
-
-      <label for="password">Mot de passe</label>
-      <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="password" type="password" v-model="newUser.password" />
-
-      <button id="add-entry-btn" class="mt-8 bg-blue-500 w-64 mx-auto rounded-xl py-2 text-white text-xl mb-8" v-if="!update" @click="addEntry()">Ajouter un utilisateur</button>
-      <button id="add-entry-btn" class="mt-8 bg-blue-500 w-64 mx-auto rounded-xl py-2 text-white text-xl mb-8" v-if="update" @click="saveUpdate()">Modifier l'utilisateur</button>
-    </div>
+    <button @click="addEntry">Ajouter un utilisateur</button>
 
     <div class="relative flex flex-row items-center odd:bg-blue-500 my-2 mt-4">
       <div class="relative block font-bold text-xl w-96"> Nom </div>
@@ -28,6 +16,8 @@
     </div>
 
   <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
+  <user-modal :content="newUser" :type="edit ? 'Modifier' : 'Ajouter'" v-if="userModal" @close="userModal = false; edit = false" @updated="clearInput" />
+
   </div>
 </template>
 
@@ -38,6 +28,7 @@ export default {
     return{
       response: [],
       newUser: {
+        id: '',
         username: '',
         email: '',
         password: '',
@@ -46,6 +37,8 @@ export default {
       removeId: null,
       update: false,
       modal: false,
+      userModal: false,
+      edit: false,
     }
   },
   methods: {
@@ -53,40 +46,44 @@ export default {
       this.removeId = id;
       this.modal = true;
     },
+
     removeEntry: function() {
       this.modal = false
       this.$axios.delete('users/'+this.removeId)
-        .then(_=> { this.updateEntries() })
+        .then(_=> { this.reloadEntries() })
     },
-    addEntry: function() {
-      this.$axios.post(`users/`, this.newUser)
-        .then(_=>{ this.clearInput() })
-    },
-    updateEntries: function() {
+
+    addEntry: function(){ this.userModal = true; },
+
+    reloadEntries: function() {
       this.$axios.get('users/')
         .then(res => { this.response = res.data })
     },
-    saveUpdate: function(){
-      this.$axios.put('users/'+this.id, this.newUser)
-        .then(res => { this.update = false; this.clearInput() })
-    },
+    
     editEntry: function(user) {
+      this.newUser.id = user.id;
       this.newUser.username = user.username;
       this.newUser.email = user.email;
       this.newUser.password = user.password;
       this.id = user.id;
       this.update = true;
+      this.userModal = true;
+      this.edit = true;
     },
+
     clearInput: function(){
+      this.userModal = false;
+      this.edit = false;
+      this.newUser.id = '';
       this.newUser.username = '';
       this.newUser.email = '';
       this.newUser.password = '';
       this.id = null;
-      this.updateEntries();
+      this.reloadEntries();
     }
   },
   mounted: function(){
-    this.updateEntries();
+    this.reloadEntries();
   }
 }
 </script>
