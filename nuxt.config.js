@@ -41,7 +41,7 @@ export default {
 
   fontawesome: {
     icons: {
-      solid: ['faBroadcastTower', 'faTv', 'faPencilRuler', 'faSearch', 'faPen'],
+      solid: ['faBroadcastTower', 'faTv', 'faPencilRuler', 'faSearch', 'faPen', 'faUser', 'faKey', 'faEnvelope'],
     },
   },
 
