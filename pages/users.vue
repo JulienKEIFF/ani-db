@@ -1,8 +1,6 @@
 <template>
   <div class="m-auto w-11/12 bg-blue-100 rounded-md p-4 mb-8">
-
-    <button @click="addEntry">Ajouter un utilisateur</button>
-
+    <button class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-full" @click="addEntry">Ajouter un utilisateur</button>
     <div class="relative flex flex-row items-center odd:bg-blue-500 my-2 mt-4">
       <div class="relative block font-bold text-xl w-96"> Nom </div>
       <div class="font-bold text-xl w-72"> E-Mail </div>
@@ -59,7 +57,7 @@ export default {
       this.$axios.get('users/')
         .then(res => { this.response = res.data })
     },
-    
+
     editEntry: function(user) {
       this.newUser.id = user.id;
       this.newUser.username = user.username;

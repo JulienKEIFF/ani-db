@@ -1,7 +1,7 @@
 <template>
   <div class="m-auto mt-4 w-11/12 bg-blue-100 rounded-md p-4 mb-8">
 
-    <button @click="addEntry">Ajouter un anime</button>
+    <button @click="addEntry" class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-full">Ajouter un anime</button>
 
     <div v-for="anime in animeList" :key="anime.id" class="relative flex flex-row items-center odd:bg-blue-500">
       <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-16 h-16 mr-4 my-2 rounded-full" />
@@ -11,12 +11,12 @@
     </div>
 
     <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
-    <anime-modal 
-      v-if="animeModal" 
-      :content="newAnime" 
-      :type="edit ? 'Modifier' : 'Ajouter'" 
+    <anime-modal
+      v-if="animeModal"
+      :content="newAnime"
+      :type="edit ? 'Modifier' : 'Ajouter'"
       @close="animeModal = false"
-      @updated="applyUpdate" 
+      @updated="applyUpdate"
     />
 
   </div>
@@ -50,7 +50,7 @@ export default {
     }
   },
   methods: {
-    removeModal: function(id) {
+    removeModal(id) {
       this.removeId = id;
       this.modal = true;
     },
@@ -101,7 +101,7 @@ export default {
       this.updateEntries();
     }
   },
-  
+
   mounted: function(){
     this.updateEntries();
   }
