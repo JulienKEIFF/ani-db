@@ -1,6 +1,5 @@
 <template>
   <div class="m-auto w-11/12 bg-blue-100 rounded-md p-4 mb-8">
-    <button class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-full" @click="addEntry">Ajouter un utilisateur</button>
     <div class="relative flex flex-row items-center odd:bg-blue-500 my-2 mt-4">
       <div class="relative block font-bold text-xl w-96"> Nom </div>
       <div class="font-bold text-xl w-72"> E-Mail </div>
@@ -13,9 +12,10 @@
       <div class="font-bold text-xl absolute right-6 cursor-pointer" @click="editEntry(user)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
-  <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
-  <user-modal :content="newUser" :type="edit ? 'Modifier' : 'Ajouter'" v-if="userModal" @close="userModal = false; edit = false" @updated="clearInput" />
+    <button class="relative bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-64 mt-4" @click="addEntry">Ajouter un utilisateur</button>
 
+    <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
+    <user-modal :content="newUser" :type="edit ? 'Modifier' : 'Ajouter'" v-if="userModal" @close="userModal = false; edit = false" @updated="clearInput" />
   </div>
 </template>
 

@@ -1,14 +1,14 @@
 <template>
   <div class="m-auto mt-4 w-11/12 bg-blue-100 rounded-md p-4 mb-8">
 
-    <button @click="addEntry" class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-full">Ajouter un anime</button>
-
     <div v-for="anime in animeList" :key="anime.id" class="relative flex flex-row items-center odd:bg-blue-500">
       <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-16 h-16 mr-4 my-2 rounded-full" />
       <div class="font-bold text-xl"> {{anime.title}} </div>
       <div class="font-bold text-2xl absolute right-0.5 cursor-pointer" @click="removeModal(anime.id)">X</div>
       <div class="font-bold text absolute right-4 cursor-pointer" @click="editEntry(anime)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
+
+    <button @click="addEntry" class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-64 mt-8">Ajouter un anime</button>
 
     <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
     <anime-modal
