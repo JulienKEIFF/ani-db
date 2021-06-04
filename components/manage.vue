@@ -1,6 +1,8 @@
 <template>
   <div class="m-auto mt-4 w-11/12 bg-blue-100 rounded-md p-4 mb-8">
 
+    <button @click="addEntry">Ajouter un anime</button>
+
     <div v-for="anime in animeList" :key="anime.id" class="relative flex flex-row items-center odd:bg-blue-500">
       <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-16 h-16 mr-4 my-2 rounded-full" />
       <div class="font-bold text-xl"> {{anime.title}} </div>
@@ -9,7 +11,13 @@
     </div>
 
     <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
-    <anime-modal v-if="animeModal" :content="newAnime" :type="edit ? 'Modifier' : 'Ajouter'" @close="animeModal = false" />
+    <anime-modal 
+      v-if="animeModal" 
+      :content="newAnime" 
+      :type="edit ? 'Modifier' : 'Ajouter'" 
+      @close="animeModal = false"
+      @updated="applyUpdate" 
+    />
 
   </div>
 </template>
@@ -22,6 +30,7 @@ export default {
       apiBase: apiBase,
       animeList: [],
       newAnime: {
+        id: '',
         title: '',
         description: '',
         status: '',
@@ -45,18 +54,24 @@ export default {
       this.removeId = id;
       this.modal = true;
     },
+
+    addEntry: function(){ this.animeModal = true; },
+
     updateEntries: function() {
       this.$axios.get('anime-shows')
       .then(res => { this.animeList = res.data })
     },
+
     removeEntry: function() {
       this.modal = false
       this.$axios.delete('anime-shows/'+this.removeId)
         .then(_=> { this.updateEntries() })
     },
+
     editEntry: function(anime) {
       this.edit = true;
       this.idUpdate = anime.id;
+      this.newAnime.id = anime.id;
       this.newAnime.title = anime.title;
       this.newAnime.description = anime.description;
       this.newAnime.status = anime.status;
@@ -69,8 +84,9 @@ export default {
       this.newAnime.source = anime.source;
       this.animeModal = true;
     },
+
     applyUpdate: function() {
-      this.update = false;
+      this.animeModal = false;
       this.idUpdate = null;
       this.newAnime.title = null;
       this.newAnime.description = null;
@@ -82,8 +98,10 @@ export default {
       this.newAnime.studios = null;
       this.newAnime.genres = null;
       this.newAnime.source = null;
+      this.updateEntries();
     }
   },
+  
   mounted: function(){
     this.updateEntries();
   }
