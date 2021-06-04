@@ -2,7 +2,8 @@
   <div class="m-auto mt-4 w-11/12 bg-blue-50 rounded-md p-4 mb-16">
     <div class="flex w-1/2 mx-auto items-center">
       <font-awesome-icon icon="search"/>
-      <input id="search" type="text" class="px-2 w-full rounded-xl bg-blue-200 ml-2" v-model="search">
+<!--      <input id="search" type="text" class="px-2 w-full rounded-xl bg-blue-200 ml-2" v-model="search">-->
+      <input id="search" type="text" class="ml-2 w-full px-2 focus:border-blue-400 rounded-xl border-2 outline-none" v-model="search">
     </div>
 
     <div v-for="anime in filteredItems" :key="anime.id"
