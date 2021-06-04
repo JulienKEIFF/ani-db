@@ -62,9 +62,11 @@
     <div v-for="anime in animeList" :key="anime.id" class="relative flex flex-row items-center odd:bg-blue-500">
       <img :src="anime.cover[0] ? apiBase + anime.cover[0].url : ''" class="w-16 h-16 mr-4 my-2 rounded-full" />
       <div class="font-bold text-xl"> {{anime.title}} </div>
-      <div class="font-bold text-2xl absolute right-0.5 cursor-pointer" @click="removeEntry(anime.id)">X</div>
+      <div class="font-bold text-2xl absolute right-0.5 cursor-pointer" @click="removeModal(anime.id)">X</div>
       <div class="font-bold text absolute right-4 cursor-pointer" @click="editEntry(anime)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
+
+    <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
 
   </div>
 </template>
@@ -89,12 +91,19 @@ export default {
         source: '',
       },
       idUpdate: null,
+      removeId: null,
       update: false,
+      modal: false,
     }
   },
   methods: {
-    removeEntry: function(id) {
-      this.$axios.delete('anime-shows/'+id)
+    removeModal: function(id) {
+      this.removeId = id;
+      this.modal = true;
+    },
+    removeEntry: function() {
+      this.modal = false
+      this.$axios.delete('anime-shows/'+this.removeId)
         .then(_=> { this.updateEntries() })
     },
     addEntry: function() {
