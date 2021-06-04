@@ -1,7 +1,7 @@
 <template>
   <div id="full-item" class="relative w-10/12 bg-blue-50 mx-auto p-4 rounded-xl flex">
     <div class="h-full w-full order-2 ml-4 my-auto">
-      <img :src="anime.cover ? apiBase + anime.cover[0].url : ''" class="h-full w-64 object-cover max-h-96 mr-8 ml-auto rounded shadow"/>
+      <img :src="anime.cover ? apiBase + anime.cover[0].url : ''" class="h-full w-96 object-cover max-h-96 mr-8 ml-auto rounded shadow"/>
     </div>
     <div class="">
       <h1 class="text-4xl mb-4 w-11/12">{{ anime.title }}</h1>
