@@ -1,75 +1,105 @@
 <template>
-  <div id="form" class="mx-auto w-10/12 bg-blue-50 p-4 rounded-xl">
-    
+  <div id="form" class="mx-auto w-1/2 bg-blue-50 p-4 rounded-xl shadow-md">
+
     <div class="flex flex-row gap-4 mx-auto justify-center">
-        <div class="text-2xl border-blue-500 py-1" :class="blogin ? 'border-b-8' : ''" id="login" @click="blogin = true">Login</div>
-        <div class="text-2xl border-blue-500 py-1" :class="!blogin ? 'border-b-8' : ''" id="register" @click="blogin = false">Register</div>
+      <div class="text-2xl border-blue-500 py-1 cursor-pointer" :class="blogin ? 'border-b-2 text-blue-500' : ''"
+           id="login" @click="blogin = true">
+        Connexion
+      </div>
+      <div class="text-2xl border-blue-500 py-1 cursor-pointer" :class="!blogin ? 'border-b-2 text-blue-500' : ''"
+           id="register"
+           @click="blogin = false">S'inscrire
+      </div>
     </div>
 
-    <div class="flex flex-col mt-4" v-if="blogin">
-        <label class="" for="Username">Username</label>
-        <input class="bg-blue-400 rounded-xl px-2 py-0.5 text-white" type="text" name="username" v-model="username">
+    <div class="p-10 rounded flex justify-center items-center flex-col" v-if="blogin">
 
-        <label class="mt-2" for="Username">Password</label>
-        <input class="bg-blue-400 rounded-xl px-2 py-0.5 text-white" type="password" name="password" v-model="password">
+      <div class="flex flex-row items-center mb-5">
+        <font-awesome-icon icon="user" class="mr-4 text-3xl text-blue-400"/>
+        <input class="p-3 w-80 focus:border-blue-400 rounded border-2 outline-none" type="text"
+               name="username"
+               autocomplete="off" placeholder="Pseudo" v-model="username">
+      </div>
 
-        <button class="mt-4 bg-blue-400 rounded-xl w-32 mx-auto py-0.5 text-white" @click="login">Login</button>
+      <div class="flex flex-row items-center mb-5">
+        <font-awesome-icon icon="key" class="mr-4  text-3xl text-blue-400"/>
+        <input class="p-3 w-80 focus:border-blue-400 rounded border-2 outline-none" type="password" name="password"
+               autocomplete="off" placeholder="Mot de passe" v-model="password">
+      </div>
+
+      <button class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-96" @click="login">Connexion
+      </button>
     </div>
 
-    <div class="flex flex-col mt-4" v-if="!blogin">
-        <label class="" for="username">Username</label>
-        <input class="bg-blue-400 rounded-xl px-2 py-0.5 text-white" type="text" name="username" v-model="username">
+    <div class="p-10 rounded flex justify-center items-center flex-col" v-if="!blogin">
+      <div class="flex flex-row items-center mb-5">
+        <font-awesome-icon icon="user" class="mr-4  text-3xl text-blue-400"/>
+      <input class="p-3 w-80 focus:border-blue-400 rounded border-2 outline-none" type="text" name="username"
+             v-model="username" autocomplete="off" placeholder="Pseudo">
+      </div>
 
-        <label class="mt-2" for="email">E-Mail</label>
-        <input class="bg-blue-400 rounded-xl px-2 py-0.5 text-white" type="text" name="email" v-model="email">
+      <div class="flex flex-row items-center mb-5">
+        <font-awesome-icon icon="envelope" class="mr-4  text-3xl text-blue-400"/>
+      <input class="p-3 w-80 focus:border-blue-400 rounded border-2 outline-none" type="text" name="email"
+             v-model="email" autocomplete="off" placeholder="Email">
+      </div>
 
-        <label class="mt-2" for="password">Password</label>
-        <input class="bg-blue-400 rounded-xl px-2 py-0.5 text-white" type="password" name="password" v-model="password">
+      <div class="flex flex-row items-center mb-5">
+        <font-awesome-icon icon="key" class="mr-4  text-3xl text-blue-400"/>
+      <input class="p-3 w-80 focus:border-blue-400 rounded border-2 outline-none" type="password" name="password"
+             v-model="password" autocomplete="off" placeholder="Mot de passe">
+      </div>
 
-        <button class="mt-4 bg-blue-400 rounded-xl w-32 mx-auto py-0.5 text-white" @click="register">Register</button>
+      <button class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-96" @click="register">S'inscrire
+      </button>
     </div>
 
     <div v-if="err">
-        {{err}}
+      {{ err }}
     </div>
   </div>
 </template>
 
 <script>
 import Cookies from 'js-cookie'
-export default {
-    name: "login",
-    data(){
-        return {
-            username: '',
-            email: '',
-            password: '',
-            blogin: true,
-            err: null
-        }
-    },
-    methods: {
-        register: function() {
-            this.$axios.post('/auth/local/register', {
-                username: this.username,
-                email: this.email,
-                password: this.password
-            })
-            .then(res=>{ this.createCookie(res.data.jwt) })
-        },
 
-        login: function() {
-            this.$axios.post('/auth/local', {
-                identifier: this.username,
-                password: this.password
-            })
-            .then(res => { this.createCookie(res.data.jwt) })
-        },
-        createCookie: function(token) {
-            Cookies.set('access_token',token);
-            console.log(Cookies.get('access_token'));
-        }
+export default {
+  name: "login",
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+      blogin: true,
+      err: null
     }
+  },
+  methods: {
+    register: function () {
+      this.$axios.post('/auth/local/register', {
+        username: this.username,
+        email: this.email,
+        password: this.password
+      })
+        .then(res => {
+          this.createCookie(res.data.jwt)
+        })
+    },
+
+    login: function () {
+      this.$axios.post('/auth/local', {
+        identifier: this.username,
+        password: this.password
+      })
+        .then(res => {
+          this.createCookie(res.data.jwt)
+        })
+    },
+    createCookie: function (token) {
+      Cookies.set('access_token', token);
+      console.log(Cookies.get('access_token'));
+    }
+  }
 }
 </script>
 
