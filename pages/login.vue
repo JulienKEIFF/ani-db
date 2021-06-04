@@ -62,7 +62,8 @@
 
 <script>
 import Cookies from 'js-cookie'
-
+import 'js-snackbar/snackbar.css';
+import { show, ACTION_TYPE } from 'js-snackbar';
 export default {
   name: "login",
   data() {
@@ -81,9 +82,8 @@ export default {
         email: this.email,
         password: this.password
       })
-        .then(res => {
-          this.createCookie(res.data.jwt)
-        })
+      .then(res => { this.createCookie(res.data.jwt) })
+      .catch(err => show({text: 'Une erreur est survenue. Vérifier votre email', pos: 'top-right', backgroundColor: '#EF4444'}) )
     },
 
     login: function () {
@@ -91,9 +91,8 @@ export default {
         identifier: this.username,
         password: this.password
       })
-        .then(res => {
-          this.createCookie(res.data.jwt)
-        })
+      .then(res => { this.createCookie(res.data.jwt) })
+      .catch(err => show({text: 'Une erreur est survenue. Vérifier vos identifiants', pos: 'top-right', backgroundColor: '#EF4444'}) )
     },
     createCookie: function (token) {
       Cookies.set('access_token', token);
