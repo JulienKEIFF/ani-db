@@ -66,7 +66,6 @@
       <div class="font-bold text absolute right-4 cursor-pointer" @click="editEntry(anime)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
-
   </div>
 </template>
 
