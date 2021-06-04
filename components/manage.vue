@@ -8,7 +8,7 @@
       <textarea class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="descr" type="text" v-model="newAnime.description" />
 
       <label for="season">Saison</label>
-      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="season" v-model="newAnime.season">
+      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none bg-white" id="season" v-model="newAnime.season">
         <option value="printemps">Printemps</option>
         <option value="ete">Eté</option>
         <option value="automne">Automne</option>
@@ -16,7 +16,7 @@
       </select>
 
       <label for="status">Status</label>
-      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="status" v-model="newAnime.status">
+      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none bg-white" id="status" v-model="newAnime.status">
         <option value="termine">Terminé</option>
         <option value="encours">En cours</option>
         <option value="pasencoresorti">Pas encore sorti</option>
@@ -26,7 +26,7 @@
       <label for="episode">Nombre d'épisodes</label>
       <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="episode" type="number" v-model="newAnime.episodes" />
 
-      <label for="episode-duration">Durée d'épisodes</label>
+      <label for="episode-duration">Durée d'un épisode</label>
       <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="episode-duration" type="number" v-model="newAnime.episodeDuration" />
 
       <label for="score">Score</label>
@@ -39,7 +39,7 @@
       <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="genres" type="text" v-model="newAnime.genres" />
 
       <label for="source">Source</label>
-      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" id="source" v-model="newAnime.source">
+      <select class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none bg-white" id="source" v-model="newAnime.source">
         <option value="manga">Manga</option>
         <option value="original">Original</option>
         <option value="lightnovel">Light Novel</option>
@@ -52,7 +52,7 @@
       </select>
 
       <label for="img">Couverture</label>
-      <input class="mb-5 p-3 focus:border-blue-400 rounded border-2 outline-none" type="file" accept="image/*" id="img"  />
+      <input class="mb-5 p-3 focus:border-blue-400 rounded outline-none" type="file" accept="image/*" id="img"  />
 
       <button v-if="!update" id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="addEntry()">Ajouter un anime</button>
       <button v-if="update" id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="applyUpdate()">Modifier l'anime</button>
@@ -66,7 +66,7 @@
       <div class="font-bold text absolute right-4 cursor-pointer" @click="editEntry(anime)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
-    
+
   </div>
 </template>
 
