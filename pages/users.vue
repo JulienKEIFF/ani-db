@@ -27,7 +27,7 @@
       <div class="font-bold text-xl absolute right-6 cursor-pointer" @click="editEntry(user)"><font-awesome-icon icon="pen" class="mr-4" /></div>
     </div>
 
-  <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" />
+  <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
   </div>
 </template>
 
@@ -51,9 +51,10 @@ export default {
   methods: {
     removeModal: function(id) {
       this.removeId = id;
-      this.modal = true; 
+      this.modal = true;
     },
     removeEntry: function() {
+      this.modal = false
       this.$axios.delete('users/'+this.removeId)
         .then(_=> { this.updateEntries() })
     },
