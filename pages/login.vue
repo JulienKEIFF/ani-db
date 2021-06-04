@@ -83,7 +83,7 @@ export default {
         password: this.password
       })
       .then(res => { this.createCookie(res.data.jwt) })
-      .catch(err => show({text: 'Une erreur est survenue. Vérifier votre email', pos: 'top-right', backgroundColor: '#EF4444'}) )
+      .catch(err => show({text: 'Une erreur est survenue. Vérifiez votre email', pos: 'top-right', backgroundColor: '#EF4444'}) )
     },
 
     login: function () {
@@ -92,7 +92,7 @@ export default {
         password: this.password
       })
       .then(res => { this.createCookie(res.data.jwt) })
-      .catch(err => show({text: 'Une erreur est survenue. Vérifier vos identifiants', pos: 'top-right', backgroundColor: '#EF4444'}) )
+      .catch(err => show({text: 'Une erreur est survenue. Vérifiez vos identifiants', pos: 'top-right', backgroundColor: '#EF4444'}) )
     },
     createCookie: function (token) {
       Cookies.set('access_token', token);
