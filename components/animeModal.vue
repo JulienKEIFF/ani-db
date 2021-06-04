@@ -53,17 +53,20 @@
       <label for="img">Couverture</label>
       <input class="mb-5 p-3 focus:border-blue-400 rounded outline-none" type="file" accept="image/*" id="img"  />
 
-      <button v-if="!update" id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="addEntry()">Ajouter un anime</button>
-      <button v-if="update" id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="applyUpdate()">Modifier l'anime</button>
+      <button id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="apply()">{{type}} l'anime</button>
+      <button id="add-entry-btn" class="mx-auto bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded w-80" @click="$emit('close')">Annuler</button>
     </div>
 </template>
 
 <script>
 export default {
   name: "anime-modal",
-  props: ['content'],
+  props: ['content', 'type'],
   methods: {
-    
+    addEntry: function() {
+      this.$axios.post('anime-shows', this.newAnime)
+      this.updateEntries()
+    },
   }
 }
 </script>

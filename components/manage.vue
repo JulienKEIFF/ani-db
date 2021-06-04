@@ -9,7 +9,7 @@
     </div>
 
     <modal :name="'utilisateur'" v-if="modal" @validate="removeEntry" @cancel="modal = false" />
-    <anime-modal v-if="animeModal" :content="newAnime" />
+    <anime-modal v-if="animeModal" :content="newAnime" :type="edit ? 'Modifier' : 'Ajouter'" @close="animeModal = false" />
 
   </div>
 </template>
@@ -37,6 +37,7 @@ export default {
       removeId: null,
       modal: false,
       animeModal: false,
+      edit: false,
     }
   },
   methods: {
@@ -53,11 +54,8 @@ export default {
       this.$axios.delete('anime-shows/'+this.removeId)
         .then(_=> { this.updateEntries() })
     },
-    addEntry: function() {
-      this.$axios.post('anime-shows', this.newAnime)
-      this.updateEntries()
-    },
     editEntry: function(anime) {
+      this.edit = true;
       this.idUpdate = anime.id;
       this.newAnime.title = anime.title;
       this.newAnime.description = anime.description;
@@ -70,7 +68,6 @@ export default {
       this.newAnime.genres = anime.genres;
       this.newAnime.source = anime.source;
       this.animeModal = true;
-
     },
     applyUpdate: function() {
       this.update = false;
